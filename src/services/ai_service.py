@@ -5,6 +5,7 @@ from agents.analysis_agent import AnalysisAgent
 
 def init_analysis_state():
     """Initialize analysis-related session state variables."""
+    #Need to update with new agentic logic role based on new free agent
     if "analysis_agent" not in st.session_state:
         st.session_state.analysis_agent = AnalysisAgent()
 
