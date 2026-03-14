@@ -29,11 +29,11 @@ def show_sidebar():
             f"""
             <div style='
                 padding: 0.5rem;
-                border-radius: 0.5rem;
+                border-radius: 0.6rem;
                 background: rgba(100, 181, 246, 0.1);
                 margin: 0.5rem 0;
                 text-align: center;
-                font-size: 0.9em;
+                font-size: 0.8em;
             '>
                 <p style='margin: 0; color: #666;'>Daily Analysis Limit</p>
                 <p style='
@@ -88,7 +88,7 @@ def render_session_item(session):
     
     # Create container for each session
     with st.container():
-        # Session title and delete button side by side
+        # Session title and delete button side by side...
         title_col, delete_col = st.columns([4, 1])
         
         with title_col:

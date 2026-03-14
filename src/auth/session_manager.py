@@ -51,7 +51,6 @@ class SessionManager:
     
     @staticmethod
     def _inject_storage_script():
-        """Inject JavaScript for persistent storage management."""
         storage_script = """
         <script>
         // Check if user data exists in localStorage on page load

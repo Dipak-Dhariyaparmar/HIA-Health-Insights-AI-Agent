@@ -5,6 +5,7 @@ from agents.analysis_agent import AnalysisAgent
 
 def init_analysis_state():
     """Initialize analysis-related session state variables."""
+    #Need to update with new agentic logic role based on new free agent
     if "analysis_agent" not in st.session_state:
         st.session_state.analysis_agent = AnalysisAgent()
 
@@ -61,6 +62,7 @@ def generate_analysis(data, system_prompt, check_only=False, session_id=None):
 
 def get_chat_response(query, context_text, chat_history):
     """Generate chat response using RAG."""
+    #Need to also update RAG logic
     init_analysis_state()
 
     # Check if chat agent was successfully initialized
