@@ -2,27 +2,6 @@
 
 AI Agent to analyze blood reports and provide detailed health insights.
 
-<p align="center">
-  <a href="https://github.com/harshhh28/hia/issues"><img src="https://img.shields.io/github/issues/harshhh28/hia"></a> 
-  <a href="https://github.com/harshhh28/hia/stargazers"><img src="https://img.shields.io/github/stars/harshhh28/hia"></a>
-  <a href="https://github.com/harshhh28/hia/network/members"><img src="https://img.shields.io/github/forks/harshhh28/hia"></a>
-  <a href="https://github.com/harshhh28/hia/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg">
-  </a>
-</p>
-
-<p align="center">
-  <a href="#-features">Features</a> |
-  <a href="#%EF%B8%8F-tech-stack">Tech Stack</a> |
-  <a href="#-installation">Installation</a> |
-  <a href="#-contributing">Contributing</a> |
-  <a href="#%EF%B8%8F-author">Author</a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/harshhh28/hia"><img src="https://raw.githubusercontent.com/harshhh28/hia/main/public/HIA_demo.gif" alt="Usage Demo"></a>
-</p>
-
 ## 🌟 Features
 
 - Intelligent agent-based architecture with multi-model cascade system
@@ -61,8 +40,8 @@ AI Agent to analyze blood reports and provide detailed health insights.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/harshhh28/hia.git
-cd hia
+git clone https://github.com/Dipak-Dhariyaparmar/HIA-Health-Insights-AI-Agent.git
+cd HIA-Health-Insights-AI-Agent
 ```
 
 2. Install dependencies:
@@ -85,9 +64,42 @@ The application requires the following tables in your Supabase database:
 
 ![database schema](https://raw.githubusercontent.com/harshhh28/hia/main/public/db/schema.png)
 
-You can use the SQL script provided at `public/db/script.sql` <a href="https://www.github.com/harshhh28/hia/blob/main/public/db/script.sql">[link]</a> to set up the required database schema.
+You can use this provided SQL script to set up the required database schema.
+...
+-- Create users table
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email TEXT NOT NULL,
+    name TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
 
-(PS: You can turn off the email confimation on signup in Supabase settings -> signup -> email)
+-- Create chat_sessions table
+CREATE TABLE chat_sessions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL,
+    title TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Create chat_messages table
+CREATE TABLE chat_messages (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    session_id UUID NOT NULL,
+    content TEXT,
+    role TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (session_id) REFERENCES chat_sessions(id)
+);
+
+-- Add indexes to improve query performance
+CREATE INDEX idx_chat_sessions_user_id ON chat_sessions(user_id);
+CREATE INDEX idx_chat_messages_session_id ON chat_messages(session_id);
+
+-- Add unique constraint to prevent duplicate emails
+ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE (email);
+
 
 5. Run the application:
 
@@ -124,27 +136,7 @@ hia/
 │       └── pdf_extractor.py   # PDF processing
 ```
 
-## 👥 Contributing
-
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on how to submit pull requests, the development workflow, coding standards, and more.
-
-We appreciate all contributions, from reporting bugs and improving documentation to implementing new features.
-
-## 👨‍💻 Contributors
-
-Thanks to all the amazing contributors who have helped improve this project!
-
-| Avatar | Name | GitHub | Role | Contributions | PR(s) | Notes |
-|--------|------|--------|------|---------------|-------|-------|
-| <img src="https://github.com/harshhh28.png" width="50px" height="50px" alt="harshhh28 avatar"/> | Harsh Gajjar | [harshhh28](https://github.com/harshhh28) | Project Creator & Maintainer | Core implementation, Documentation | N/A | Lead Developer |
-| <img src="https://github.com/gaurav98095.png" width="50px" height="50px" alt="gaurav98095 avatar"/> | Gaurav | [gaurav98095](https://github.com/gaurav98095) | Contributor | DB Schema, bugs | [#1](https://github.com/harshhh28/hia/pull/1), [#5](https://github.com/harshhh28/hia/pull/5), [#6](https://github.com/harshhh28/hia/pull/6), [#7](https://github.com/harshhh28/hia/pull/7) | Database Design, bugs |
-
-<!-- To future contributors: Your profile will be added here when your PR is merged! -->
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/harshhh28/hia/blob/main/LICENSE) file for details.
 
 ## 🙋‍♂️ Author
 
-Created by [Harsh Gajjar](https://harshgajjar.vercel.app)
+Created by Dipak Dhariyaparmar
