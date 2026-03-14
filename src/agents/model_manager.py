@@ -16,6 +16,7 @@ class ModelManager:
     """
     Manages AI model selection, fallback, and rate limits.
     Implements an agent-based approach for model management.
+    This logic is privios so need to updater after
     """
     
     MODEL_CONFIG = {
